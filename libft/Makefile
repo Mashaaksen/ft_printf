@@ -80,24 +80,26 @@ HDR = libft.h
 
 OBJ = $(SRC:.c=.o)
 
-DEL = rm -rf
+DEL = rm -f
 
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-		@ar -cru $(NAME) $(OBJ)
-		@ranlib $(NAME)
+		ar -cru $(NAME) $(OBJ)
+		ranlib $(NAME)
 
 %.o: %.c libft.h
-		@$(G) $(FLAG) -c -o $@ $<
+		$(G) $(FLAG) -c -o $@ $<
 
 clean:
-		@$(DEL) $(OBJ)
+		$(DEL) $(OBJ)
 
 fclean: clean
-		@$(DEL) $(NAME)
+		$(DEL) $(NAME)
 
-re: fclean all
+re: all
+	make
+
 
 
 
