@@ -28,14 +28,6 @@ fclean: clean
 		make fclean -C ./libft
 		$(DEL) $(NAME)
 		@echo libftprintf.a is DESTROYED!!!
-re: all
-		make all -C ./libft
+re: fclean all
+		make re -C ./libft
 		@echo ALL DAMM FPS is DESTROYED!!!
-norm:
-		make norm -C ./libft
-		norminette $(SRC) $(HDR) | grep -B 1 "Error"
-rmsh:
-		make rmsh -C ./libft
-		rm *~
-		rm \#*
-		rm *.out

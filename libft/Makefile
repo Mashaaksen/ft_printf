@@ -97,8 +97,7 @@ clean:
 fclean: clean
 		$(DEL) $(NAME)
 
-re: all
-	make
+re: fclean all
 
 
 
