@@ -80,7 +80,7 @@ HDR = libft.h
 
 OBJ = $(SRC:.c=.o)
 
-DEL = rm -f
+DEL = rm -rf
 
 all: $(NAME)
 
@@ -98,7 +98,6 @@ fclean: clean
 		$(DEL) $(NAME)
 
 re: fclean all
-
 
 
 
