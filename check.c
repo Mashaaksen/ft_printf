@@ -39,6 +39,11 @@ t_print *check_width(const char **str, va_list ap, t_print *print)
                 (*str)++;
             }
         }
+		if (print->weidth < 0)
+		{
+			print->mynus = 1;
+			print->weidth *= -1;
+		}
     }
     return (print);
 }
@@ -109,7 +114,7 @@ t_print *check_type(const char **str, t_print *print)
 
     p = "sSpdDioOuUxXcC";
     s = ft_strchr(p, **str);
-    if (s)
+    if (s && **str != '\0')
     {
         print->type = *s;
         (*str)++;
@@ -118,23 +123,49 @@ t_print *check_type(const char **str, t_print *print)
     return (print);
 }
 
-int     check_all(t_print *print, char *str)
+int 	check_count(char *p)
+{
+	int i;
+
+	i = 0;
+	while (*p != '\0')
+	{
+		if (ft_strchr("sSpdDioOuUxXcC", *p))
+			i++;
+		p++;
+	}
+	return (i > 2 ? 0 : 1);
+}
+
+int     check_all(t_print *print, char **str)
 {
     size_t len;
     char *p;
 
-    len = (ft_strchr(str, '%') - str);
-    ft_strchr(str, '%') == NULL ? len = (ft_strchr(str, '\0') - str) : 0;
-    *str == '%' ? len = 0 : 0;
-    p = (char *)malloc(sizeof(char) * len + 1);
-    ft_memcpy(p, str, len + 1);
-    if (ft_strchr(p, 's') == NULL && ft_strchr(p, 'S') == NULL && ft_strchr(p, 'p') == NULL && ft_strchr(p, 'd') == NULL
-        && ft_strchr(p, 'D') == NULL && ft_strchr(p, 'i') == NULL && ft_strchr(p, 'o') == NULL && ft_strchr(p, 'O') == NULL
-        && ft_strchr(p, 'u') == NULL && ft_strchr(p, 'U') == NULL && ft_strchr(p, 'x') == NULL && ft_strchr(p, 'X') == NULL
-        && ft_strchr(p, 'c') == NULL && ft_strchr(p, 'C') == NULL)
-    {
-        print->p = p;
-        return (0);
-    }
+	len = 0;
+	p = NULL;
+	if (**str != '\0') {
+		len = (ft_strchr(*str, '%') - *str);
+		ft_strchr(*str, '%') == NULL ? len = (ft_strchr(*str, '\0') - *str) : 0;
+		**str == '%' ? len = 0 : 0;
+		p = (char *) malloc(sizeof(char) * len + 1);
+		ft_memcpy(p, *str, len + 1);
+		if ((ft_strchr(p, 's') == NULL && ft_strchr(p, 'S') == NULL && ft_strchr(p, 'p') == NULL &&
+			 ft_strchr(p, 'd') == NULL
+			 && ft_strchr(p, 'D') == NULL && ft_strchr(p, 'i') == NULL && ft_strchr(p, 'o') == NULL &&
+			 ft_strchr(p, 'O') == NULL
+			 && ft_strchr(p, 'u') == NULL && ft_strchr(p, 'U') == NULL && ft_strchr(p, 'x') == NULL &&
+			 ft_strchr(p, 'X') == NULL
+			 && ft_strchr(p, 'c') == NULL && ft_strchr(p, 'C') == NULL) || check_count(p) == 0) {
+			print->p = (char *) malloc(sizeof(char) * 2);
+			print->p[0] = *p;
+			print->p[1] = '\0';
+			(*str)++;
+			free((void *) p);
+			return (0);
+		}
+
+		free((void *) p);
+	}
     return (1);
 }

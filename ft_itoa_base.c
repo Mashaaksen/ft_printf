@@ -44,7 +44,7 @@ char	*ft_itoa_base(unsigned long long value, char c)
     {
         if (value % base >= 10 && c == 'X')
             str[size--] = (char) (value % base + 55);
-        else if (value % base >= 10 && (c == 'x' || c == 'o'))
+        else if (value % base >= 10 && (c == 'x' || c == 'o' || c == 'p'))
             str[size--] = (char) (value % base + 87);
         else
             str[size--] = (char) (value % base + 48);

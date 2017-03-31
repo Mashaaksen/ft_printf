@@ -8,7 +8,7 @@ int     find_spec(char *str)
     while (*str != 's' && *str != 'S' && *str != 'p' && *str != 'd'
            && *str != 'D' && *str != 'i' && *str != 'o' && *str != 'O'
            && *str != 'u' && *str != 'U' && *str != 'x' && *str != 'X'
-           && *str != 'c' && *str != 'C')
+           && *str != 'c' && *str != 'C' && *str != '\0')
     {
         str++;
         i++;
@@ -33,17 +33,20 @@ char     *proc(const char *str, t_print *print, va_list ap, int *ret)
         print = check_size(&str, print);
         print = check_type(&str, print);
         print = change(print);
+		if (print->type == 'd' || print->type == 'i' || print->type == 'o' || print->type == 'x' || print->type == 'X')
+			if (print->accuracy >= 0 && print->null == 1)
+				print->null = 0;
         if ((*str == '%' || *str == '\0') && print->type == 0 && *print->p != *str)
         {
             *ret += ft_print(print, ap);
-            str++;
+            *str != '\0' ? str++ : 0;
             return (char *) (str);
         }
         else if (*str == '%' && print->type == 0 && *print->p == *str)
         {
             print->proc = 1;
             *ret += ft_print(print, ap);
-            str++;
+			str++;
             return (char *) (str);
         }
         else if (print->type != 0)
@@ -51,8 +54,11 @@ char     *proc(const char *str, t_print *print, va_list ap, int *ret)
             *ret += ft_print(print, ap);
             return (char *) (str);
         }
-        else if (check_all(print, (char *) str) == 0)
+        else if (check_all(print, (char **) &str) == 0)
+        {
+            *ret += ft_print(print, ap);
             return (char *) (str);
+        }
     }
     return (char *) (str);
 }
@@ -97,6 +103,8 @@ int     ft_printf(const char *format, ... )
     va_list ap;
     int ret;
 
+	if (format == NULL)
+		return (0);
     va_start(ap, format);
     ret = fill(format, &print, ap);
     va_end(ap);

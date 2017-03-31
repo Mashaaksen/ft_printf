@@ -38,13 +38,14 @@ int		size_v(unsigned long long value, int base);
 char	*ft_itoa_base(unsigned long long value, char c);
 char			*ft_itoa_long(long long n);
 t_print     *change(t_print *print);
-int     check_all(t_print *print, char *str);
+int     check_all(t_print *print, char **str);
 char     *proc(const char *str, t_print *print, va_list ap, int *ret);
 char    *accuarcy(t_print *print, char *str);
 char    *flag_weidth(t_print *print, char *str);
 char    *find_str(t_print *print, va_list ap);
 long long		ft_int_min(long long n);
 int		ft_len_int(long long n);
+char    *ft_wchar(wchar_t *str, t_print *print);
 
 
 #endif //PRINTF_FT_PRINTF_H

@@ -5,6 +5,7 @@ SRC = ft_printf.c \
         check.c \
         ft_itoa_base.c \
         ft_print.c \
+        wchar.c \
         long.c
 
 HDR = ft_printf.h
