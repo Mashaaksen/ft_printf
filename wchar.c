@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wchar.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maksenov <maksenov@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/03 15:18:12 by maksenov          #+#    #+#             */
+/*   Updated: 2017/04/03 15:40:54 by maksenov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int        size_str(wchar_t *str)
+int			size_str(wchar_t *str)
 {
-	int i;
-	int size;
+	int		i;
+	int		size;
 
 	i = 0;
 	size = 0;
@@ -22,7 +34,7 @@ int        size_str(wchar_t *str)
 	return (size);
 }
 
-void    print_wchar(wchar_t c, char *str, int *i, int *len)
+void		print_wchar(wchar_t c, char *str, int *i, int *len)
 {
 	if (c <= 0x7F && 1 <= (*len)--)
 		str[++(*i)] = (char)c;
@@ -49,11 +61,11 @@ void    print_wchar(wchar_t c, char *str, int *i, int *len)
 	}
 }
 
-char    *ft_wchar(wchar_t *str, t_print *print)
+char		*ft_wchar(wchar_t *str, t_print *print)
 {
-	int j;
-	int i;
-	char *p;
+	int		j;
+	int		i;
+	char	*p;
 	int		size;
 	int		len;
 
@@ -62,7 +74,7 @@ char    *ft_wchar(wchar_t *str, t_print *print)
 	size = size_str(str);
 	if (print->accuracy != -1 && print->accuracy < size)
 		size = print->accuracy;
-	p = (char *)malloc(sizeof(char) *  (size + 1));
+	p = (char *)malloc(sizeof(char) * (size + 1));
 	p[size] = '\0';
 	while (str[i] && size != 0)
 		print_wchar(str[i++], p, &j, &size);

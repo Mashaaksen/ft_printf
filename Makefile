@@ -1,12 +1,20 @@
 NAME =  libftprintf.a
 
-SRC = ft_printf.c \
-        change.c \
-        check.c \
-        ft_itoa_base.c \
-        ft_print.c \
-        wchar.c \
-        long.c
+SRC =	ft_printf.c \
+	change.c \
+	check.c \
+	check_flags.c \
+	check_width.c \
+	check_size.c \
+	find.c \
+	flags.c \
+	accuracy.c \
+	check_accuracy.c \
+	proc.c \
+	ft_itoa_base.c \
+	ft_print.c \
+	wchar.c \
+	long.c
 
 HDR = ft_printf.h
 
